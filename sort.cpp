@@ -7,7 +7,7 @@ void SelectSort(std::vector<int>::iterator &begin, std::vector<int>::iterator &e
 		std::vector<int>::iterator min = pos;
 		for (std::vector<int>::iterator iter = pos + 1;iter != end;++iter)
 		{
-			if (*iter < *pos)
+			if (*iter < *min)
 			{
 				min = iter;
 			}
@@ -19,16 +19,23 @@ void SelectSort(std::vector<int>::iterator &begin, std::vector<int>::iterator &e
 
 void InsertSort(std::vector<int>::iterator &begin, std::vector<int>::iterator &end)
 {
+	bool isBegin = false;
 	for (std::vector<int>::iterator i = begin + 1;i != end;++i)
 	{
 		int val = *i;
 		std::vector<int>::iterator j = i - 1;
-		while (j != begin - 1 && *j > val)
+		while (j >= begin && *j > val)
 		{
 			*(j + 1) = *j;
-			--j;
-		}
-		*(j + 1) = val;
+			if (j == begin) 
+			{
+				*j = val;
+				isBegin = true;
+				break;
+			}
+			else --j;
+		} 
+		if (!isBegin) *(j + 1) = val;
 	}
 }
 
