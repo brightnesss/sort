@@ -56,3 +56,35 @@ void BubbleSort(std::vector<int>::iterator &begin, std::vector<int>::iterator &e
 		if (!noComplete) break;
 	}
 }
+
+std::vector<int>::iterator HoarePartition(std::vector<int>::iterator &begin, std::vector<int>::iterator &end)
+{
+	std::vector<int>::iterator i, j;
+	i = begin;
+	j = end - 1;
+	int val = *begin;
+	while (true)
+	{
+		while ((*i <= val) && (i != end - 1)) ++i;
+		while ((*j >= val) && (j != begin)) --j;
+		if (i < j)
+		{
+			std::swap(*i, *j);
+			++i;
+			--j;
+		}
+		else break;
+	}
+	std::swap(*begin, *j);
+	return j;
+}
+
+void QuickSort(std::vector<int>::iterator &begin, std::vector<int>::iterator &end)
+{
+	if (begin < end)
+	{
+		std::vector<int>::iterator s = HoarePartition(begin, end);
+		QuickSort(begin, s);
+		QuickSort(s + 1, end);
+	}
+}
