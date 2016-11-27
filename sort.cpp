@@ -65,8 +65,8 @@ std::vector<int>::iterator HoarePartition(std::vector<int>::iterator &begin, std
 	int val = *begin;
 	while (true)
 	{
-		while ((*i <= val) && (i != end - 1)) ++i;
-		while ((*j >= val) && (j != begin)) --j;
+		while ((i != end) && (*i <= val)) ++i;
+		while ((j != begin) && (*j >= val)) --j;
 		if (i < j)
 		{
 			std::swap(*i, *j);
