@@ -88,3 +88,46 @@ void QuickSort(std::vector<int>::iterator &begin, std::vector<int>::iterator &en
 		QuickSort(s + 1, end);
 	}
 }
+
+void HeapBottomUp(std::vector<int>::iterator &begin, std::vector<int>::iterator &end)
+{
+	std::vector<int>::difference_type num, temp, k;
+	num = end - begin;
+	temp = floor(num / 2) - 1;
+	std::vector<int>::iterator pos;
+	int val;
+	for (std::vector<int>::iterator i = begin + temp;i >= begin;--i)
+	{
+		pos = i;
+		k = i - begin;
+		val = *pos;
+		bool heap = false;
+		while (!heap && (end - pos) > k + 1)
+		{
+			std::vector<int>::iterator j = pos + k + 1;
+			if (j < end - 1)
+			{
+				if (*j < *(j + 1)) j = j + 1;
+			}
+			if (val >= *j) heap = true;
+			else
+			{
+				*pos = *j;
+				k = j - begin;
+				pos = j;
+			}
+		}
+		*pos = val;
+		if (i == begin) break;
+	}
+}
+
+void HeapSort(std::vector<int>::iterator &begin, std::vector<int>::iterator &end)
+{
+	while ((begin + 1) != end)
+	{
+		HeapBottomUp(begin, end);
+		std::swap(*begin, *(end - 1));
+		--end;
+	}
+}
